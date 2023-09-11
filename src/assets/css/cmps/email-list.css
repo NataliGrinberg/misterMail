@@ -1,0 +1,78 @@
+
+.email-list {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  .email-list td, .email-list th {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+
+
+  /* .email-list  > .star:before {
+    visibility:hidden;
+    font-size:20px;
+    cursor:pointer;
+    border-color: black;
+    color:aquamarine;
+} */
+.email-list .star::after {
+   content: "\2605";
+   position: absolute;
+   visibility:visible;
+   color: red;
+}
+.email-list .star::before {
+    content: "\2605";
+    position: absolute;
+    visibility:visible;
+    color: #6c0fce;
+ }
+/*
+.email-list .star:checked:before {
+   content: "\2606";
+   position: absolute;
+   visibility:visible;
+   color: orange;
+   
+} */
+
+
+
+
+
+  
+/* 
+.email-list {
+    border: 1px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    padding: 0;
+    /* gap: 15px; 
+    list-style-type: none;
+    /* background-color: hsla(134, 84%, 31%, 0.788); 
+}
+
+.email-list .email-actions {
+    /* display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-basis: 25%;
+    padding: 10px; 
+    background-color: #7a0ae2c9;
+    /* transition: transform 0.2s; 
+}
+
+
+
+.email-list .email-tr {
+  background-color: #ff0090;
+  color: #490cd7;
+}
+
+
+
+
+   */

@@ -1,0 +1,30 @@
+.email-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+   
+}
+
+.email-details > * {
+    margin-top: 10px;
+}
+
+table {
+    width: 100%;
+    border: 1px solid hsl(199, 83%, 82%);
+  }
+  
+  td {
+    padding: 16px;
+  }
+  
+  .email-details tr:nth-child(even) {
+    background-color: teal ;
+  }
+  .email-details .article-table{
+    padding: 60px;
+    text-align: center;
+    background: hsl(51, 73%, 59%);
+    color: white;
+    font-size: 30px
+}

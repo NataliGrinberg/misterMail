@@ -1,0 +1,10 @@
+.robot-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+   
+}
+
+.robot-details > * {
+    margin-top: 10px;
+}
