@@ -1,8 +1,9 @@
 import { EmailPreview } from "./EmailPreview";
 
+
 export function EmailList({ emails, onRemove ,onUpdateStar, onUpdateIsRead}) {
 
-    function starChangefiled(email) {
+    function starChangefield(email) {
         onUpdateStar(email)
     }
     
@@ -21,7 +22,7 @@ export function EmailList({ emails, onRemove ,onUpdateStar, onUpdateIsRead}) {
                         <input type="checkbox" id="checkbox-list" name="checkbox-list"></input>
                         </div>
                         <div className="email-div3">
-                        <div  onClick={(ev) => starChangefiled(email)}>  
+                        <div  onClick={(ev) => starChangefield(email)}>  
                          {email.isStarred  ?
                             <img src={'https://ssl.gstatic.com/ui/v1/icons/mail/gm3/1x/star_fill_googyellow500_20dp.png'} />
                          : 

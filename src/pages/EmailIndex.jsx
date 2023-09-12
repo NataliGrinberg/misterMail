@@ -50,7 +50,7 @@ export function EmailIndex() {
     }
 
     async function onUpdateStar(emailToSave) {
-        debugger
+
         try {
          
         emailToSave.isStarred = emailToSave.isStarred ? false : true

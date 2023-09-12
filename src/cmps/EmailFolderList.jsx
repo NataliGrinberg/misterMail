@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { emailService } from "../services/email.service";
 
 export function EmailFolderList({ loggedinUser, filterBy, onSetFilter}) {
     const [filterByToEdit, setFilterByToEdit] = useState(filterBy)
@@ -8,7 +9,7 @@ export function EmailFolderList({ loggedinUser, filterBy, onSetFilter}) {
 
 
     function filterFolder(field, value) {
-        setFilterByToEdit((prevFilter) => ({ ...prevFilter, [field] : value }))
+        setFilterByToEdit(() => ({ ...emailService.getDefaultFilter(), [field] : value }))
     }
 
    
