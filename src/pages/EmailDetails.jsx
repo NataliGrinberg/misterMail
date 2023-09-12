@@ -24,6 +24,7 @@ export function EmailDetails() {
     }
 
     if (!email) return <div>Loading..</div>
+
     return (<>
         <table className="email-details">
             <td>

@@ -1,4 +1,20 @@
-.email-preview {
+.grid-container-list .email-div > div {
+    grid-row-start: auto;
+    background-color: #e01212cc;
+    text-align: center;
+    padding: 20px 0;
+    font-size: 30px;
+  }
+  
+.blod
+{
+    font-weight: bold;
+}
+
+.normal{
+    font-weight:normal;
+}
+/* .email-preview {
     background: #e96b9509;
     background-repeat: no-repeat;
     box-shadow: 0 0 11px red;
@@ -24,4 +40,4 @@
 
 .email-preview:hover .actions {
     transform: translateY(0);
-}
+} */

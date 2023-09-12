@@ -24,19 +24,20 @@ async function query(filterBy) {
     let emails = await storageService.query(STORAGE_KEY)
 
     if (filterBy) {
-         let { subject= '', body= '', isStarred= false,isRead= null, removedAt= false ,from=''} = filterBy
-
+         let { subject= '', body= '', isStarred= null ,isRead= null, removedAt= false ,from=''} = filterBy
+         console.log(filterBy)
          emails = emails.filter(email => 
-        
-            email.subject.toLowerCase().includes(subject.toLowerCase())
-            && email.body.toLowerCase().includes(body.toLowerCase())
-             &&  email.isStarred === isStarred
-             && isRead !== null ? email.isRead === isRead : true
+            isStarred !== null ? email.isStarred === isStarred : true
+            // email.subject.toLowerCase().includes(subject.toLowerCase())
+            // && email.body.toLowerCase().includes(body.toLowerCase())
+            //  ||  email.isStarred === isStarred
+            //  && isRead !== null ? email.isRead === isRead : true
             // &&  removedAt !== null ? email.removedAt === removedAt : true
         
               )
         
     }
+    console.log(emails)
      return emails
 }
 
@@ -61,7 +62,6 @@ function save(emailToSave) {
 
 
 function createEmail() {
-      //     id: 'e101', 
     return {
     subject, 
     body, 
@@ -78,13 +78,11 @@ function getDefaultFilter() {
     return {
         subject: '',
         body: '',
-        isStarred: false,
+        isStarred: null,
         isRead: null,
         removedAt: null
     }
 }
-
-
 
 function _createEmails() {
     let emails = utilService.loadFromStorage(STORAGE_KEY)

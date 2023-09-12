@@ -1,30 +1,46 @@
 import { EmailPreview } from "./EmailPreview";
 
-export function EmailList({ emails, onRemove }) {
-    return ( <table className="email-list">
-        
-        
+export function EmailList({ emails, onRemove ,onUpdateStar, onUpdateIsRead}) {
+
+    function starChangefiled(email) {
+        onUpdateStar(email)
+    }
+    
+    function isReadChange(email) {
+        onUpdateIsRead(email)
+    }
+    
+
+    return ( <section>
+        <div >
         {emails.map((email) => {
             return (
-                   <tr className="email-tr" key={email.id}>
+                   <div className="grid-container" key={email.id}>
                     
-                       <td>
-                        <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike"></input>
-                        </td>
-                    <td>
-                        <div className="star"  onClick={(ev) => {
-                            console.log(ev.target)
-                            }}></div>
-                    </td>
-                    <EmailPreview email={email}/>
-                    <td className="email-actions">
+                       <div className="email-div2">
+                        <input type="checkbox" id="checkbox-list" name="checkbox-list"></input>
+                        </div>
+                        <div className="email-div3">
+                        <div  onClick={(ev) => starChangefiled(email)}>  
+                         {email.isStarred  ?
+                            <img src={'https://ssl.gstatic.com/ui/v1/icons/mail/gm3/1x/star_fill_googyellow500_20dp.png'} />
+                         : 
+                            <img src={'https://www.gstatic.com/images/icons/material/system_gm/1x/star_border_black_20dp.png'} />
+                         }
+                            </div>
+                    </div>
+                    <div className="email-div4" onClick={() => isReadChange(email)}><EmailPreview email={email} /></div>
+                    
+                    <div className="email-actions">
                         <button onClick={() => onRemove(email.id)}>X</button>
-                    </td> 
-                </tr>
+                    </div> 
+                </div>
             )
         })}
     
-    </table>
+    </div>
+
+    </section>
     )
 }
 

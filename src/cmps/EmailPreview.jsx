@@ -1,12 +1,14 @@
 import { Link } from "react-router-dom";
 
 
-export function EmailPreview({ email}) 
+export function EmailPreview({email}) 
 {
+    const font = email.isRead ? 'normal' :  'blod' 
     return <> 
-            <td><Link to={`/email/${email.id}`}>{email.subject}</Link></td>
-            <td><Link to={`/email/${email.id}`}>{email.body}</Link></td>
-            <td><Link to={`/email/${email.id}`}>{email.from}</Link></td>
+            <div  className = {font} ><Link to={`/email/${email.id}`}>{email.subject}</Link></div>
+            <div className = {font}><Link to={`/email/${email.id}`}>{email.body}</Link></div>
+            <div className = {font} ><Link to={`/email/${email.id}`}>{email.from}</Link></div>
+
             </>
            
 }
