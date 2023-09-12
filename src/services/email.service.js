@@ -22,24 +22,24 @@ _createEmails()
 
 async function query(filterBy) { 
     let emails = await storageService.query(STORAGE_KEY)
-
+    console.log("filterBy", filterBy)
     if (filterBy) {
-         let { subject= '', body= '', isStarred= null ,isRead= null, removedAt= false ,from=''} = filterBy
+         let { subject= '', body= '', isStarred= null ,isRead= null, removedAt= null ,from =''} = filterBy
          console.log(filterBy)
-         emails = emails.filter(email => 
-            isStarred !== null ? email.isStarred === isStarred : true
-            // email.subject.toLowerCase().includes(subject.toLowerCase())
-            // && email.body.toLowerCase().includes(body.toLowerCase())
-            //  ||  email.isStarred === isStarred
-            //  && isRead !== null ? email.isRead === isRead : true
-            // &&  removedAt !== null ? email.removedAt === removedAt : true
-        
-              )
+         emails = emails.filter(email => {
+            return (isStarred !== null ? email.isStarred === isStarred : true)
+            && (isRead !== null ? email.isRead === isRead : true)
+            && (from !== '' ? email.from === from : true)
+            && (email.subject.toLowerCase().includes(subject.toLowerCase())
+              || email.body.toLowerCase().includes(body.toLowerCase()))
+            &&   (removedAt !== null  && email.removedAt !== null ?  email.removedAt === removedAt : true)
+         })
         
     }
     console.log(emails)
      return emails
 }
+
 
 
 function getById(id) {
@@ -55,7 +55,6 @@ function save(emailToSave) {
     if (emailToSave.id) {
         return storageService.put(STORAGE_KEY, emailToSave)
     } else {
-        //emailToSave.isOn = false
         return storageService.post(STORAGE_KEY, emailToSave)
     }
 }
@@ -80,7 +79,8 @@ function getDefaultFilter() {
         body: '',
         isStarred: null,
         isRead: null,
-        removedAt: null
+        removedAt: false,
+        from: ''
     }
 }
 
@@ -88,9 +88,9 @@ function _createEmails() {
     let emails = utilService.loadFromStorage(STORAGE_KEY)
     if (!emails || !emails.length) {
         emails = [
-            { id: 'e101', subject: 'hello', body: 'Would love to catch up sometimes 1', isRead: false, isStarred: false, sentAt : 1551133930594, removedAt : null, from: 'natali@gmail.com', to: 'gr@gmail.com' },
+            { id: 'e101', subject: 'hello', body: 'Would love to catch up sometimes 1', isRead: false, isStarred: false, sentAt : 1551133930594, removedAt : null, from: loggedinUser.email, to: 'gr@gmail.com' },
             { id: 'e102', subject: 'to', body: 'Would love to catch up sometimes 2', isRead: true, isStarred: false, sentAt : 1551133930594, removedAt : null ,  from: 'natali@gmail.com' , to: 'gr@gmail.com'},
-            { id: 'e103', subject: 'you', body: 'Would love to catch up sometimes 3', isRead: true, isStarred: true, sentAt : 1551133930594, removedAt : null ,from: 'natali@gmail.com' ,to: 'gr@gmail.com' },
+            { id: 'e103', subject: 'you', body: 'Would love to catch up sometimes 3', isRead: true, isStarred: true, sentAt : 1551133930594, removedAt : null ,from: loggedinUser.email ,to: 'gr@gmail.com' },
             { id: 'e104', subject: 'Miss you!', body: 'Would love to catch up sometimes 4', isRead: false, isStarred: false, sentAt : 1551133930594, removedAt : null ,  from: 'natali@gmail.com' ,to: 'gr@gmail.com'},
             { id: 'e105', subject: 'try it', body: 'Would love to catch up sometimes 5', isRead: false, isStarred: true, sentAt : 1551133930594, removedAt : null ,from: 'natali@gmail.com' ,to: 'gr@gmail.com'},
             { id: 'e106', subject: 'ok ok', body: 'Would love to catch up sometimes 6', isRead: true, isStarred: false, sentAt : 1551133930594, removedAt : null, from: 'natali@gmail.com' ,to: 'gr@gmail.com'},

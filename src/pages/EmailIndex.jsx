@@ -21,11 +21,7 @@ export function EmailIndex() {
         setFilterBy((prevFilterBy) => ({ ...prevFilterBy, ...fieldsToUpdate }))
     }
 
-    // function onSetFilterStar(fieldsToUpdate) {
-    //     setFilterBy((prevFilterBy) => ({ ...prevFilterBy, ...fieldsToUpdate }))
-    // }
-
-
+    
     // function onClearFilter() {
     //     setFilterBy(robotService.getDefaultFilter())
     // }
@@ -52,28 +48,23 @@ export function EmailIndex() {
     async function onUpdateStar(emailToSave) {
 
         try {
-         
-        emailToSave.isStarred = emailToSave.isStarred ? false : true
-        await emailService.save(emailToSave)
+            emailToSave.isStarred = emailToSave.isStarred ? false : true
+            await emailService.save(emailToSave)
 
-        setEmails( emails.map(email => {
+            setEmails( emails.map(email => {
             if (email.id === emailToSave.id) {
               return {...email, isStarred: emailToSave.isStarred};
             }
             return email;
           }))
-      
-
         } catch (err) {
-            console.log('Had issues loading emails', err);
+            console.log('Had issues update isStarred in emails', err);
         }
     }
 
 
     async function onUpdateIsRead(emailToSave) {
-        
         try {
-         
         emailToSave.isRead = true
         await emailService.save(emailToSave)
 
@@ -83,10 +74,9 @@ export function EmailIndex() {
             }
             return email;
           }))
-      
 
         } catch (err) {
-            console.log('Had issues loading emails', err);
+            console.log('Had issues update isRead in emails', err);
         }
     }
 
@@ -95,11 +85,11 @@ export function EmailIndex() {
 
 return <section>
     <div className="grid-container">
-    <div className="item1"><button onClick={()=>{console.log('press button')}}>Compose</button></div>
+    <div className="item1"><EmailFilter loggedinUser={emailService.loggedinUser} onSetFilter={onSetFilter} filterBy={filterBy} /></div>
     <div className="item2"><EmailFolderList loggedinUser={emailService.loggedinUser} onSetFilter={onSetFilter} filterBy={filterBy} /></div>
     <div className="item3"><EmailList emails={emails} onRemove={onRemoveEmail} onUpdateStar={onUpdateStar} onUpdateIsRead={onUpdateIsRead}/></div>  
-    <div className="item4">Right</div>
-    <div className="item5"><EmailFilter loggedinUser={emailService.loggedinUser} onSetFilter={onSetFilter} filterBy={filterBy} /></div>
+    <div className="item4"></div>
+    <div className="item5"><button onClick={()=>{console.log('press button')}}>Compose</button></div>
     </div>
 </section>
 

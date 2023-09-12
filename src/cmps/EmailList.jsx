@@ -1,6 +1,5 @@
 import { EmailPreview } from "./EmailPreview";
 
-
 export function EmailList({ emails, onRemove ,onUpdateStar, onUpdateIsRead}) {
 
     function starChangefield(email) {
@@ -30,7 +29,7 @@ export function EmailList({ emails, onRemove ,onUpdateStar, onUpdateIsRead}) {
                          }
                             </div>
                     </div>
-                    <div className="email-div4" onClick={() => isReadChange(email)}><EmailPreview email={email} /></div>
+                    <div className="email-div4" onClick={() => isReadChange(email)} ><EmailPreview email={email} /></div>
                     
                     <div className="email-actions">
                         <button onClick={() => onRemove(email.id)}>X</button>
