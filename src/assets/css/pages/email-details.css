@@ -1,30 +1,39 @@
+
 .email-details {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-   
+  display:grid;
+  grid-template-columns: 1fr ;
+  grid-template-rows: auto auto auto auto auto auto;
+  gap: 5px;  
+  cursor: pointer;
+ 
+    margin-top: 50px;
+    background: #e7ecef;
+    align-content: center;
+
+    border: 3px solid #5c5e5c;
 }
 
-.email-details > * {
-    margin-top: 10px;
+  
+   .email-details > div {
+    align-content: center;
+    border: 1px solid #5c5e5c;
+    padding: 10px;
+    background-color:white ;
+  } 
+  .email-details .article-body{
+    padding: 10px;
+    text-align: left;
+    background:white;
+    color: rgb(2, 2, 2);
+    font-size: 20px;
+    overflow-y: scroll;
+    
 }
 
-table {
-    width: 100%;
-    border: 1px solid hsl(199, 83%, 82%);
-  }
-  
-  td {
-    padding: 16px;
-  }
-  
-  .email-details tr:nth-child(even) {
-    background-color: teal ;
-  }
-  .email-details .article-table{
-    padding: 60px;
-    text-align: center;
-    background: hsl(51, 73%, 59%);
-    color: white;
-    font-size: 30px
+.email-details > .email-details-go-back{
+  background-color: hsl(30, 1%, 70%);
+  color: white;
+  padding: 15px 10px;
+  justify-self: center;
+  margin: 5px;
 }

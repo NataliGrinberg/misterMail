@@ -23,23 +23,33 @@ export function EmailDetails() {
         }
     }
 
+
     if (!email) return <div>Loading..</div>
 
     return (<>
-        <table className="email-details">
-            <td>
-                <tr className="email-subject">Subject: {email.subject}</tr>
-                <tr>
-                    <td className="email-from">From: {email.from}</td>
-                    <td>              </td>
-                    <td className="email-sentAt">{email.sentAt}</td>
-                    <td>isStarred : {email.isStarred}</td>
-                </tr>
-                <tr className="email-to"> to : {email.to}</tr>
-                <tr className="article-table"><article>{email.body}</article></tr>
-            </td>
-        </table>
-        <Link to="/email">Go back</Link>
+        <article className="email-details">
+           
+                {/* <div  onClick={() => starChangefield(email)}>
+                    {email.isStarred ?
+                        <img src={'https://ssl.gstatic.com/ui/v1/icons/mail/gm3/1x/star_fill_googyellow500_20dp.png'} />
+                        :
+                        <img src={'https://www.gstatic.com/images/icons/material/system_gm/1x/star_border_black_20dp.png'} />
+                    }
+                </div> */}
+                <div className="email-subject">Subject: {email.subject}</div>
+
+                <div className="email-from">From: {email.from}</div>
+                <div className="email-to"> to : {email.to}</div>
+
+                <div className="email-sentAt">{email.sentAt}</div>
+                <div className="article-body"><article>{email.body}</article></div>
+           
+            {/* <div className="email-actions">
+                <button onClick={() => onRemove(email.id)}>X</button>
+            </div> */}
+              <Link className="email-details-go-back" to="/email">Go back</Link>
+        </article>
+    
     </>
     )
 }

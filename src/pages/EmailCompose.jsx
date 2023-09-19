@@ -36,12 +36,11 @@ export function EmailCompose(onCreateNewEmail) {
 
             <div>New Message </div>
 
-            {/* 
-       <div>
-       <label htmlFor="type">Search</label>
-       <input className = 'email-filter-search' type="text" id="subject"
-         /> 
-   </div> */}
+            <div className="email-to">To:  <input type="text" className="email-to"></input></div>
+            <div className="email-issue"> Issue: <input type="text" className="email-issue"></input></div>
+
+            <div className="article-body"><input type="text" className="email-subject"></input></div>
+
             <button>send</button>
         </form>
 

@@ -41,8 +41,11 @@ export function EmailFilter({ filterBy, onSetFilter, checkboxSelectedAll }) {
             showCheckBoxes.current = !showCheckBoxes.current;
         }
     }
+
+
     //onSubmit={onSubmitFilter}
     return <form id="email-filter" className="email-filter" >
+
         <div>
             <input className="checkboxSelectAll" onClick={checkboxSelectAll} type="checkbox"></input>
         </div>

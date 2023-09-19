@@ -29,7 +29,7 @@ export function App() {
 
                         <Route path="/email" element={<EmailIndex />} />
                         <Route path="/email/:emailId" element={<EmailDetails />} />
-                        <Route path="/email/:emailId" element={<EmailCompose />} />
+                        <Route path="/email/compose" element={<EmailCompose />} />
                     </Routes>
                 </main>
 

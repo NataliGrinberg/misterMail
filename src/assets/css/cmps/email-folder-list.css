@@ -1,11 +1,20 @@
 .email-filter-side{
     display: grid;
     grid-template-columns: minmax(20px,1fr) minmax(auto,100px) minmax(20px,1fr) ;
+    grid-template-rows: repeat(5 , auto);
     gap: 6px;
     
 }
 
 .email-filter-side  > div{
-    grid-column: 2;
-    width: 0px;
+     grid-column: 2; 
+     width: 0px;
+  
+
+}
+.email-filter-side > div > .email-compose-in-folder-filter{
+   
+   
+  
+   
 }
