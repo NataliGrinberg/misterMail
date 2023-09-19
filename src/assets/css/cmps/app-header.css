@@ -1,19 +1,24 @@
 .app-header {
     background: hwb(199 27% 13% / 0.637);
     color: white;
-
 }
 
-.app-header section.container {
+.app-header section.container-app-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
+ 
+    padding-left: 20px;
+    padding-right: 100px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+ 
 }
 
-.app-header h1.logo {
+ .app-header h1.logo {
     flex-grow: 1;
     font-weight: 600;
-}
+} 
 
 .app-header .back {
     flex-grow: 1;
@@ -23,6 +28,10 @@
     margin-right: 10px;
 }
 
-.app-header section.container>section {
+.app-header section.container-app-header>section {
     flex-grow: 1;
+}
+
+.app-header section.container-app-header> img{
+    max-width: 6%;
 }

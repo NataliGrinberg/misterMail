@@ -1,4 +1,4 @@
-import imgUrl from '../assets/imgs/react.png'
+import imgUrl from '../assets/imgs/emailLogo.jpg'
 
 export function Home() {
     return <section className="home">

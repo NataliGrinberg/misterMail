@@ -1,36 +1,36 @@
-/* .email-div1 { grid-area: header; }
-.email-div1 .email-div2 { grid-area: menu; }
-.email-div1 .email-div3 { grid-area: main; }
-.email-div1 .email-div4 { grid-area: right; }
-.email-div1 .email-actions { grid-area: right; } */
 
-.grid-container .email-div{
+ .list-grid-container{
   display: grid;
-  grid-template-columns: auto auto auto auto ;
-  gap: 10px;
-  background-color: hwb(68 15% 7%);
-  padding: 10px;
-  grid-template-rows: auto 50px;
+  grid-template-columns: minmax(20px,40px) minmax(20px,40px) auto minmax(30px,100px) ;
+  grid-template-rows: auto;
+  gap: 5px;  
+  cursor: pointer;
+  overflow-y: scroll;
+
+ }
+
+
+
+ .list-grid-container.blod
+{
+  background-color: white;
 }
 
-.grid-container .email-div > div {
-  grid-row-start: auto;
-  background-color: #e01212cc;
-  text-align: center;
-  padding: 20px 0;
-  font-size: 30px;
+.list-grid-container.normal{
+  background-color:#f0eeee;
 }
+ .list-grid-container:hover {
+  background-color: rgb(174, 227, 243);
+  transform: translateY(0);
+} 
 
-/* .email-list {
+
+
+ .list-grid-container .email-preview {
   display: grid;
-    font-family: Arial, Helvetica, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
-    list-style-type: none;
-  }
+  grid-template-columns: auto auto auto;
   
-  .email-list li, .email-list ul {
-    border: 1px solid #ddd;
-    padding: 8px;
-    list-style-type: none;
-  } */
+}
+
+
+

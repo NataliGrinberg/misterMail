@@ -5,6 +5,7 @@ import { EmailList } from "../cmps/EmailList";
 import { emailService } from "../services/email.service";
 import { EmailFolderList } from "../cmps/EmailFolderList";
 import { EmailFilter } from "../cmps/EmailFilter";
+import { EmailCompose } from "./EmailCompose";
 
 
 export function EmailIndex() {
@@ -14,14 +15,14 @@ export function EmailIndex() {
     const [filterBy, setFilterBy] = useState(emailService.getDefaultFilter())
     useEffect(() => {
         loadEmails()
-    }, [filterBy]) 
+    }, [filterBy])
 
 
     function onSetFilter(fieldsToUpdate) {
         setFilterBy((prevFilterBy) => ({ ...prevFilterBy, ...fieldsToUpdate }))
     }
 
-    
+
     // function onClearFilter() {
     //     setFilterBy(robotService.getDefaultFilter())
     // }
@@ -45,35 +46,51 @@ export function EmailIndex() {
         }
     }
 
-    async function onUpdateStar(emailToSave) {
-
+    async function onCreateNewEmail(emailToSave) {
         try {
-            emailToSave.isStarred = emailToSave.isStarred ? false : true
             await emailService.save(emailToSave)
 
-            setEmails( emails.map(email => {
-            if (email.id === emailToSave.id) {
-              return {...email, isStarred: emailToSave.isStarred};
-            }
-            return email;
-          }))
+            emails.add(emailToSave)
+            setEmails(emails)
+
         } catch (err) {
             console.log('Had issues update isStarred in emails', err);
         }
     }
 
 
+    async function onUpdateStar(emailToSave) {
+        try {
+            emailToSave.isStarred = emailToSave.isStarred ? false : true
+            await emailService.save(emailToSave)
+
+            setEmails(emails.map(email => {
+                if (email.id === emailToSave.id) {
+                    return { ...email, isStarred: emailToSave.isStarred };
+                }
+                return email;
+            }))
+        } catch (err) {
+            console.log('Had issues update isStarred in emails', err);
+        }
+    }
+
+
+    async function checkboxSelectedAll() {
+
+    }
+
     async function onUpdateIsRead(emailToSave) {
         try {
-        emailToSave.isRead = true
-        await emailService.save(emailToSave)
+            emailToSave.isRead = true
+            await emailService.save(emailToSave)
 
-        setEmails( emails.map(email => {
-            if (email.id === emailToSave.id) {
-              return {...email, isRead: true};
-            }
-            return email;
-          }))
+            setEmails(emails.map(email => {
+                if (email.id === emailToSave.id) {
+                    return { ...email, isRead: true };
+                }
+                return email;
+            }))
 
         } catch (err) {
             console.log('Had issues update isRead in emails', err);
@@ -83,18 +100,17 @@ export function EmailIndex() {
     if (!emails) return <div>Loading..</div>
 
 
-return <section>
-    <div className="grid-container">
-    <div className="item1"><EmailFilter loggedinUser={emailService.loggedinUser} onSetFilter={onSetFilter} filterBy={filterBy} /></div>
-    <div className="item2"><EmailFolderList loggedinUser={emailService.loggedinUser} onSetFilter={onSetFilter} filterBy={filterBy} /></div>
-    <div className="item3"><EmailList emails={emails} onRemove={onRemoveEmail} onUpdateStar={onUpdateStar} onUpdateIsRead={onUpdateIsRead}/></div>  
-    <div className="item4"></div>
-    <div className="item5"><button onClick={()=>{console.log('press button')}}>Compose</button></div>
-    </div>
-</section>
+    return <section>
+        <div className="email-grid-container">
+            <div className="emailFilter"><EmailFilter loggedinUser={emailService.loggedinUser} onSetFilter={onSetFilter} filterBy={filterBy} checkboxSelectedAll={checkboxSelectedAll} /></div>
+            <div className="emailFolderList"><EmailFolderList loggedinUser={emailService.loggedinUser} onSetFilter={onSetFilter} filterBy={filterBy} /></div>
+            <div className="emailList"><EmailList emails={emails} onRemove={onRemoveEmail} onUpdateStar={onUpdateStar} onUpdateIsRead={onUpdateIsRead} /></div>
 
 
-{/* <button onClick={onClearFilter}>Clear filter</button> */}
+            {/* <div className="item5"><EmailCompose onCreateNewEmail={onCreateNewEmail}/> </div> */}
+        </div>
+    </section>
+
 
 
 

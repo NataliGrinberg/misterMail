@@ -12,15 +12,16 @@ export function EmailList({ emails, onRemove ,onUpdateStar, onUpdateIsRead}) {
     
 
     return ( <section>
-        <div >
+        <div>
         {emails.map((email) => {
+            const font = email.isRead ? 'normal' :  'blod' 
             return (
-                   <div className="grid-container" key={email.id}>
+                   <div className= {"list-grid-container  " + font} key={email.id}>
                     
-                       <div className="email-div2">
-                        <input type="checkbox" id="checkbox-list" name="checkbox-list"></input>
+                       <div className="email-checkbox-list">
+                        <input type="checkbox" id={"checkbox-list-row  "+ email.id} name="checkbox-list-row"></input>
                         </div>
-                        <div className="email-div3">
+                        <div className="email-isStarred-list">
                         <div  onClick={(ev) => starChangefield(email)}>  
                          {email.isStarred  ?
                             <img src={'https://ssl.gstatic.com/ui/v1/icons/mail/gm3/1x/star_fill_googyellow500_20dp.png'} />
@@ -29,7 +30,7 @@ export function EmailList({ emails, onRemove ,onUpdateStar, onUpdateIsRead}) {
                          }
                             </div>
                     </div>
-                    <div className="email-div4" onClick={() => isReadChange(email)} ><EmailPreview email={email} /></div>
+                    <div className="email-preview" onClick={() => isReadChange(email)} ><EmailPreview email={email} font={font}/></div>
                     
                     <div className="email-actions">
                         <button onClick={() => onRemove(email.id)}>X</button>

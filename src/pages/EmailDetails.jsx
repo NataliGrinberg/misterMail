@@ -28,18 +28,18 @@ export function EmailDetails() {
     return (<>
         <table className="email-details">
             <td>
-           <tr className="email-subject">Subject: {email.subject}</tr>
-           <tr>
-            <td className="email-from">From: {email.from}</td>
-            <td>              </td>
-            <td className="email-sentAt">{email.sentAt}</td>
-            <td>isStarred : {email.isStarred}</td> 
-           </tr>
-           <tr className="email-to"> to : {email.to}</tr>
-           <tr className="article-table"><article>{email.body}</article></tr>
-           </td>
+                <tr className="email-subject">Subject: {email.subject}</tr>
+                <tr>
+                    <td className="email-from">From: {email.from}</td>
+                    <td>              </td>
+                    <td className="email-sentAt">{email.sentAt}</td>
+                    <td>isStarred : {email.isStarred}</td>
+                </tr>
+                <tr className="email-to"> to : {email.to}</tr>
+                <tr className="article-table"><article>{email.body}</article></tr>
+            </td>
         </table>
         <Link to="/email">Go back</Link>
-        </>
+    </>
     )
 }
