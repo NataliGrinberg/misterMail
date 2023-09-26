@@ -10,6 +10,7 @@ import { AboutTeam } from './cmps/AboutTeam'
 import { EmailDetails } from './pages/EmailDetails';
 import { EmailIndex } from './pages/EmailIndex';
 import { EmailCompose } from './pages/EmailCompose';
+import { UserMsg } from './cmps/UserMsg';
 
 
 export function App() {
@@ -27,12 +28,14 @@ export function App() {
                             <Route path="/about/vision" element={<AboutVision />} />
                         </Route>
 
-                        <Route path="/email" element={<EmailIndex />} />
+                        <Route path="/email" element={<EmailIndex />} >
+                            <Route path="/email/compose/:emailId?" element={<EmailCompose />} />
+                        </Route>
                         <Route path="/email/:emailId" element={<EmailDetails />} />
-                        <Route path="/email/compose" element={<EmailCompose />} />
+                        {/* <Route path="/email/compose" element={<EmailCompose />} /> */}
                     </Routes>
                 </main>
-
+                <UserMsg/>
                 <AppFooter />
             </section>
         </Router>

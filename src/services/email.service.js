@@ -24,7 +24,7 @@ async function query(filterBy) {
     let emails = await storageService.query(STORAGE_KEY)
     console.log("filterBy", filterBy)
     if (filterBy) {
-        let { subject = '', body = '', isStarred = null, isRead = null, removedAt = null, from = '' } = filterBy
+        let { subject = '', body = '', isStarred = null, isRead = null, sentAt = null ,removedAt = null, from = '' } = filterBy
         console.log(filterBy)
         emails = emails.filter(email => {
             return (isStarred !== null ? email.isStarred === isStarred : true)
@@ -32,10 +32,12 @@ async function query(filterBy) {
                 && (from !== '' ? email.from === from : true)
                 && (email.subject.toLowerCase().includes(subject.toLowerCase())
                     || email.body.toLowerCase().includes(body.toLowerCase()))
-                && (removedAt !== null && email.removedAt !== null ? email.removedAt === removedAt : true)
+                && (removedAt !== null ? email.removedAt !== null : email.removedAt === null)
+                && (sentAt !== null ? email.sentAt === null : email.sentAt !== null)
         })
 
     }
+    debugger
     console.log(emails)
     return emails
 }
@@ -60,7 +62,8 @@ function save(emailToSave) {
 }
 
 
-function createEmail() {
+function createEmail(subject= '', body= '', isRead= false, isStarred=false, sentAt= null, removedAt= null, from= loggedinUser.email , to= '' )
+ {
     return {
         subject,
         body,
@@ -68,8 +71,7 @@ function createEmail() {
         isStarred,
         sentAt,
         removedAt,
-        from,
-        star
+        from
     }
 }
 
@@ -79,7 +81,8 @@ function getDefaultFilter() {
         body: '',
         isStarred: null,
         isRead: null,
-        removedAt: false,
+        sentAt: null,
+        removedAt: null,
         from: ''
     }
 }
@@ -101,11 +104,12 @@ function _createEmails() {
             { id: 'e111', subject: 'Email 14!', body: 'Would love to catch up sometimes 4', isRead: false, isStarred: false, sentAt: 1551133930594, removedAt: null, from: 'natali@gmail.com', to: 'gr@gmail.com' },
             { id: 'e112', subject: 'Email 15', body: 'Would love to catch up sometimes 5', isRead: false, isStarred: true, sentAt: 1551133930594, removedAt: null, from: 'natali@gmail.com', to: 'gr@gmail.com' },
             { id: 'e113', subject: 'Email 16', body: 'Would love to catch up sometimes 6', isRead: true, isStarred: false, sentAt: 1551133930594, removedAt: null, from: 'natali@gmail.com', to: 'gr@gmail.com' },
-            { id: 'e114', subject: 'Email 17', body: 'Would love to catch up sometimes 7', isRead: false, isStarred: false, sentAt: 1551133930594, removedAt: null, from: 'natali@gmail.com', to: 'gr@gmail.com' },
+            { id: 'e114', subject: 'Email 17', body: 'Would love to catch up sometimes 7', isRead: false, isStarred: false, sentAt: null, removedAt: null, from: 'natali@gmail.com', to: 'gr@gmail.com' },
 
         ]
         emails.map((email) => {
-            email.sentAt = new Date(email.sentAt)
+            if(email.sentAt)
+                 email.sentAt = new Date(email.sentAt)
             return email
         }
         );

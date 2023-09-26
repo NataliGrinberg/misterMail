@@ -1,6 +1,4 @@
 import { Outlet } from "react-router";
-import { AboutTeam } from "../cmps/AboutTeam";
-import { AboutVision } from "../cmps/AboutVision";
 import { Link } from "react-router-dom";
 
 export function About() {

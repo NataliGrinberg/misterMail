@@ -30,11 +30,20 @@ export function EmailList({ emails, onRemove ,onUpdateStar, onUpdateIsRead}) {
                          }
                             </div>
                     </div>
-                    <div className="email-preview" onClick={() => isReadChange(email)} ><EmailPreview email={email} font={font}/></div>
+                    <div className="email-preview" onClick={() => {if(email.isRead === false) isReadChange(email)}} ><EmailPreview email={email} font={font}/></div>
                     
                     <div className="email-actions">
-                        <button onClick={() => onRemove(email.id)}>X</button>
+                        <button onClick={() => onRemove(email)}>X</button>
                     </div> 
+                    
+                    <div className="email-action-read">
+                    {email.isRead  ?
+                            <button onClick={() => isReadChange(email)}><i class="fa-regular fa-envelope"></i> </button>
+                            : 
+                            <button onClick={() => isReadChange(email)}> <i class="fa-regular fa-envelope-open"></i>    </button> }
+                    </div> 
+                   
+                    
                 </div>
             )
         })}
