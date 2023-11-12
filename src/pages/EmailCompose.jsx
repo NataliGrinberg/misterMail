@@ -89,6 +89,12 @@ useEffect(() => {
     const { subject, body, to } = email
     return(
        <section className="email-edit">
+ <i class="fa-solid fa-xmark"></i>
+<i class="fa-solid fa-window-minimize"></i>
+<i class="fa-solid fa-down-left-and-up-right-to-center"></i>
+<i class="fa-solid fa-up-right-and-down-left-from-center"></i>
+
+
             <Link to="/email"><button className="close-btn" onClick={onSaveDraftEmailSent}>X</button></Link>
             <h1>{emailId ? 'Edit' : 'Add'} Email</h1>
         

@@ -1,23 +1,38 @@
  .email-filter {
     display: grid;
-    grid-template-columns: 30px minmax(30px,100px) 1fr minmax(30px,100px) ;
+    /* grid-template-columns: 30px minmax(30px,100px) 1fr minmax(30px,100px) ; */
+    grid-template-columns:  30px 30px 1fr;
     grid-template-rows: auto;
     gap: 5px;
-    background-color: transparent;
+    background-color: #f0f4f9;;
     
 }
 
 
 .email-filter-search{
     -webkit-border-radius: 24px;
-    border-radius: 24px;
+    border-radius: 16px;
     border: none;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-    min-height: 30px;
-    width: 100%;
+    /* -webkit-box-sizing: border-box;
+    box-sizing: border-box; */
+    min-height: 40px;
+    width: 50%;
+    background-color: rgb(234, 241, 251);
   }
 
 
+  .email-filter-search-icon{
+    position: absolute;
+    left: 28%;
+    top: calc(50% - 0.5em);  
+  }
 
+  .email-filter-search:focus{
+    background-color: white;
+  }
+
+  .email-filter-search-box{
+    position: relative;
+
+  }
 

@@ -1,3 +1,4 @@
+import { useRef } from 'react'
 import { storageService } from './async-storage.service.js'
 import { utilService } from './util.service.js'
 
@@ -11,22 +12,104 @@ export const emailService = {
     getById,
     createEmail,
     getDefaultFilter,
-    loggedinUser
+    loggedinUser,
+    getFilterFromParams,
+    getSortFromParams,
+    getUnreadCount
 }
 
 
 const STORAGE_KEY = 'emails'
+let unreadCount= 0;
 
 _createEmails()
 
+function getFilterFromParams(searchParams) {
+    debugger
+    const defaultFilter = getDefaultFilter()
+    const filterBy = {}
+    for (const field in defaultFilter) {
+        filterBy[field] =  searchParams.get(field) ? (searchParams.get(field)==='null' ? null : searchParams.get(field)) : defaultFilter[field]
+    }
 
+    return filterBy
+}
+
+function getUnreadCount() {
+    return unreadCount
+}
+
+function getSortFromParams(searchParams) {
+    const defaultSort = getDefaultSort()
+    const sortBy = {}
+    for (const field in defaultSort) {
+        sortBy[field] =  searchParams.get(field) ? (searchParams.get(field)==='null' ? null : searchParams.get(field)) : ''
+    }
+
+    return sortBy
+}
 async function query(filterBy) {
+    debugger
     let emails = await storageService.query(STORAGE_KEY)
-    console.log("filterBy", filterBy)
+
+   let emailsUnRead= await queryFilter({'isRead': false},emails)
+    unreadCount = emailsUnRead.length
+    
+    emails = await queryFilter(filterBy,emails)
+   
+    console.log(emails)
+    return emails
+}
+
+
+
+
+
+async function queryFilter(filterBy,emails) {
+    debugger
+    console.log("queryFilter", filterBy)
     if (filterBy) {
         let { subject = '', body = '', isStarred = null, isRead = null, sentAt = null ,removedAt = null, from = '' } = filterBy
-        console.log(filterBy)
         emails = emails.filter(email => {
+            return (isStarred !== null ? email.isStarred === isStarred : true)
+                && (isRead !== null ? email.isRead === isRead : true)
+                && (from !== '' ? email.from === from : true)
+                && (email.subject.toLowerCase().includes(subject.toLowerCase())
+                    || email.body.toLowerCase().includes(body.toLowerCase()))
+                && (removedAt !== null ? email.removedAt !== null : email.removedAt === null)
+                && (sentAt !== null ? email.sentAt === null : email.sentAt !== null)
+        })
+
+    }
+
+    return emails
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+async function querySort(sortBy, emails) {
+    
+    if (sortBy) {
+        let { subject = '', body = '', isStarred = null, isRead = null, sentAt = null ,removedAt = null, from = '' } = sortBy
+        console.log(filterBy)
+
+        if(isStarred !== null)
+        emails = emails.sort(function(em1,em2){return em1.isStarred-em2.isStarred});
+
+        emails = emails.sort(email => {
             return (isStarred !== null ? email.isStarred === isStarred : true)
                 && (isRead !== null ? email.isRead === isRead : true)
                 && (from !== '' ? email.from === from : true)
@@ -41,7 +124,6 @@ async function query(filterBy) {
     console.log(emails)
     return emails
 }
-
 
 
 function getById(id) {
@@ -76,6 +158,19 @@ function createEmail(subject= '', body= '', isRead= false, isStarred=false, sent
 }
 
 function getDefaultFilter() {
+    return {
+        folder: 'Inbox',
+        subject: '',
+        body: '',
+        isStarred: null,
+        isRead: null,
+        sentAt: null,
+        removedAt: null,
+        from: ''
+    }
+}
+
+function getDefaultSort() {
     return {
         subject: '',
         body: '',

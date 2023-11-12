@@ -11,8 +11,9 @@ export function EmailList({ emails, onRemove ,onUpdateStar, onUpdateIsRead}) {
     }
     
 
-    return ( <section>
+    return ( <section className="email-list-class">
         <div>
+            
         {emails.map((email) => {
             const font = email.isRead ? 'normal' :  'blod' 
             return (
@@ -33,14 +34,14 @@ export function EmailList({ emails, onRemove ,onUpdateStar, onUpdateIsRead}) {
                     <div className="email-preview" onClick={() => {if(email.isRead === false) isReadChange(email)}} ><EmailPreview email={email} font={font}/></div>
                     
                     <div className="email-actions">
-                        <button onClick={() => onRemove(email)}>X</button>
+                        <button onClick={() => onRemove(email)}><i className="fa fa-trash"></i></button>
                     </div> 
                     
                     <div className="email-action-read">
                     {email.isRead  ?
-                            <button onClick={() => isReadChange(email)}><i class="fa-regular fa-envelope"></i> </button>
+                            <button onClick={() => isReadChange(email)}><i className="fa-regular fa-envelope"></i> </button>
                             : 
-                            <button onClick={() => isReadChange(email)}> <i class="fa-regular fa-envelope-open"></i>    </button> }
+                            <button onClick={() => isReadChange(email)}> <i className="fa-regular fa-envelope-open"></i>    </button> }
                     </div> 
                    
                     
@@ -49,7 +50,6 @@ export function EmailList({ emails, onRemove ,onUpdateStar, onUpdateIsRead}) {
         })}
     
     </div>
-
     </section>
     )
 }

@@ -5,22 +5,32 @@ import { EmailList } from "../cmps/EmailList";
 import { emailService } from "../services/email.service";
 import { EmailFolderList } from "../cmps/EmailFolderList";
 import { EmailFilter } from "../cmps/EmailFilter";
-import { EmailCompose } from "./EmailCompose";
 import { Outlet, useNavigate } from "react-router";
 import { eventBusService, showErrorMsg, showSuccessMsg } from "../services/event-bus.service";
+import { useSearchParams } from "react-router-dom";
 
 
 export function EmailIndex() {
 
 
     const [emails, setEmails] = useState(null)
-    const [filterBy, setFilterBy] = useState(emailService.getDefaultFilter())
+    const [searchParams, setSearchParams] = useSearchParams()
+    const [filterBy, setFilterBy] = useState(emailService.getFilterFromParams(searchParams))
     const navigate = useNavigate()
+    const [unreadCount, setUnreadCount] = useState(null)
+    const [sortBy, setSortBy] = useState(emailService.getSortFromParams(searchParams))
+  
 
 
     useEffect(() => {
-        loadEmails()
+        setSearchParams(filterBy)
+        loadEmails() 
     }, [filterBy])
+
+    // useEffect(() => {
+    //     setSearchParams(sortBy)
+    //     loadEmails() 
+    // }, [sortBy])
 
 
     function onSetFilter(fieldsToUpdate) {
@@ -28,28 +38,19 @@ export function EmailIndex() {
     }
 
 
-    // function onClearFilter() {
-    //     setFilterBy(robotService.getDefaultFilter())
-    // }
-
     async function loadEmails() {
         try {
             const emails = await emailService.query(filterBy)
             setEmails(emails)
+            setUnreadCount(emailService.getUnreadCount)
+            debugger
+           
         } catch (err) {
             console.log('Had issues loading emails', err);
         }
     }
 
-    // async function onRemoveEmail(emailId) {
-    //     try {
-    //         console.log('emailId', emailId);
-    //         await emailService.remove(emailId)
-    //         setEmails((prevEmails) => prevEmails.filter(email => email.id !== emailId))
-    //     } catch (err) {
-    //         console.log('Had issues loading emails', err);
-    //     }
-    // }
+ 
     async function onRemoveEmail(emailToRemove) {
         try {
 
@@ -157,13 +158,24 @@ export function EmailIndex() {
 
     async function onUpdateIsRead(emailToSave) {
         try {
-            debugger
-            emailToSave.isRead = !emailToSave.isRead
-            await emailService.save(emailToSave)
+            let updateUnreadCount
+            if(emailToSave.isRead == false)
+            {
+                emailToSave.isRead = true;
 
+                updateUnreadCount =-1 
+            }
+            else{
+                emailToSave.isRead = false;
+                updateUnreadCount = 1
+            }
+            
+            await emailService.save(emailToSave)
+            setUnreadCount(unreadCount+updateUnreadCount) 
+            
             setEmails(emails.map(email => {
                 if (email.id === emailToSave.id) {
-                    return { ...email, isRead: emailToSave.isRead };
+                    return { ...email, isRead: emailToSave.isRead};
                 }
                 return email;
             }))
@@ -176,13 +188,12 @@ export function EmailIndex() {
 
     if (!emails) return <div>Loading..</div>
 
-
+    const {folder, subject, body, isStarred, isRead, sentAt, removedAt, from} = filterBy
     return <section>
         <div className="email-grid-container">
-            <div className="emailFilter"><EmailFilter loggedinUser={emailService.loggedinUser} onSetFilter={onSetFilter} filterBy={filterBy} checkboxSelectedAll={checkboxSelectedAll} /></div>
-            <div className="emailFolderList"><EmailFolderList loggedinUser={emailService.loggedinUser} onSetFilter={onSetFilter} filterBy={filterBy} /></div>
+            <div className="emailFilter"><EmailFilter loggedinUser={emailService.loggedinUser} onSetFilter={onSetFilter} filterBy={{ subject, body, isRead}} checkboxSelectedAll={checkboxSelectedAll}/></div>
+            <div className="emailFolderList"><EmailFolderList loggedinUser={emailService.loggedinUser} onSetFilter={onSetFilter} filterBy={{ folder, sentAt, removedAt, isStarred, from, isRead }} unreadCount= {unreadCount} /></div>
             <div className="emailList"><EmailList emails={emails} onRemove={onRemoveEmail} onUpdateStar={onUpdateStar} onUpdateIsRead={onUpdateIsRead} /></div>
-            {/* <Outlet context={{onSendEmail, name: 'Natali'}}/> */}
         </div>
         <Outlet context={{ onAddEmail, onUpdateEmail, onSaveDraftEmail }} />
     </section>

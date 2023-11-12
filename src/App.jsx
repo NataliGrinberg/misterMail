@@ -32,7 +32,6 @@ export function App() {
                             <Route path="/email/compose/:emailId?" element={<EmailCompose />} />
                         </Route>
                         <Route path="/email/:emailId" element={<EmailDetails />} />
-                        {/* <Route path="/email/compose" element={<EmailCompose />} /> */}
                     </Routes>
                 </main>
                 <UserMsg/>

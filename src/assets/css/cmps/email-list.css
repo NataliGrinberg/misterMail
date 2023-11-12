@@ -1,36 +1,42 @@
-
- .list-grid-container{
+.list-grid-container {
   display: grid;
-  grid-template-columns: minmax(20px,40px) minmax(20px,40px) auto minmax(30px,100px)  minmax(20px,40px) ;
+  /* grid-template-columns: minmax(20px,40px) minmax(20px,40px) auto minmax(30px,100px)  minmax(20px,40px) ;
+  */
+
+  grid-template-columns: 5% 5% 80% 5% 5%;
   grid-template-rows: auto;
-  gap: 5px;  
   cursor: pointer;
+  /* overflow-y: scroll; */
+  padding-bottom: 10px;
+  padding-top: 10px;
+  margin: 1px;
+  background-color:#f2f2f2;
+ 
+
+}
+
+
+.email-list-class {
+  background-color:#f2f2f2;
   overflow-y: scroll;
+  padding-right: 0;
+  height: 579px;
 
- }
+}
 
-
-
- .list-grid-container.blod
-{
+.list-grid-container.blod {
   background-color: white;
 }
 
-.list-grid-container.normal{
-  background-color:#f0eeee;
+.list-grid-container.normal {
+  background-color: rgb(242, 246, 252);
 }
- .list-grid-container:hover {
+
+.list-grid-container:hover {
   background-color: rgb(174, 227, 243);
   transform: translateY(0);
-} 
-
-
-
- .list-grid-container .email-preview {
-  display: grid;
-  grid-template-columns: auto auto auto;
-  
 }
 
-
-
+.email-filter-search-icon{
+  position: absolute;
+}

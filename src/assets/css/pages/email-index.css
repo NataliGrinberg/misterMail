@@ -4,24 +4,25 @@
 
 .email-grid-container {
   display: grid;
-  grid-template-columns:100px 2fr;
+  grid-template-columns:200px auto;
+ 
 
   grid-template-areas:
-    'h h'
+    's h'
     's l';
   gap: 6px;
-  background-color: #e3f0fb;
+  background-color: #f0f4f9;;
    padding: 5px; 
 
 }
  .email-grid-container > div {
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: #f0f4f9;;
   text-align: center;
   padding: 10px 0;
 }  
 
 
-.emailList{
+/* .emailList{
   -webkit-border-radius: 24px;
   border-radius: 24px;
   border: none;
@@ -29,6 +30,6 @@
   box-sizing: border-box;
   min-height: 30px;
   width: 100%;
-
-  overflow: scroll;
- }
+  
+  
+ } */

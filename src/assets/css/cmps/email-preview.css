@@ -6,26 +6,26 @@
     font-weight: normal;
 }
 
-/* .email-preview {
-    background: #e96b9509;
-    background-repeat: no-repeat;
-    box-shadow: 0 0 11px red;
-    padding: 15px;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    border-radius: 5px;
-    cursor: pointer;
-}
+
+.list-grid-container .email-preview {
+    display: grid;
+     grid-template-columns: 20% 30% 40% 10%;
+   
+  }
+ /* .list-grid-container .email-preview .flexEmailPreview{
+    /* background-color: #d71111; */
+    /* margin: 5px;
+    padding: 10px;
+    font-size: 20px; */
+  /*}  */
 
 
 
 
-
-.email-preview .actions a {
+/* .email-preview .actions a {
     color: rgb(223, 11, 11);
 }
 
 .email-preview:hover .actions {
     transform: translateY(0);
-} */
+} */ 
